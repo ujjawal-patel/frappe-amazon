@@ -8,13 +8,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Open Sans', sans-serif;
             font-size: 18px;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
         }
         
         .amazon-header {
-            background-color: #ff9900;
-            color: white;
+            background-color: #333;
+            color: #fff;
             padding: 20px;
             display: flex;
             justify-content: space-between;
@@ -33,7 +36,7 @@
         }
         
         .amazon-header nav ul li a {
-            color: white;
+            color: #fff;
             text-decoration: none;
             font-size: 20px;
         }
@@ -68,13 +71,13 @@
         
         .cart-button {
             padding: 15px 20px;
-            background-color: #febd69;
+            background-color: #333;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 18px;
             font-weight: bold;
-            color: #333;
+            color: #fff;
             position: relative;
             top: 10px;
             right: 20px;
@@ -101,12 +104,14 @@
         }
         
         .product-info {
+            padding-left: 100px;
             flex: 2;
         }
         
         .product-info h1 {
             font-size: 30px;
             margin: 20px 0;
+            
         }
         
         .product-info p {
@@ -133,11 +138,96 @@
         .clothing-field {
             display: none;
         }
+        
+        /* Product Card */
+        .product-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Product Image */
+        .product-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+        
+        /* Product Title */
+        .product-card h1 {
+            font-size: 1.7rem;
+            margin: 0 0 12px 0;
+            color: #333;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        /* Product Details */
+        .product-card h4 {
+            font-size: 1.2rem;
+            color: #555;
+            margin: 8px 0;
+            line-height: 1.6;
+            text-align: center;
+        }
+        
+        .product-card h4 strong {
+            color: #333;
+            font-weight: 500;
+        }
+        
+        /* Price Highlight */
+        .product-card h4 .price {
+            color: #e67e22;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 800px) {
+            .product-container {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            }
+            
+            .product-card h1 {
+                font-size: 1.4rem;
+            }
+            
+            .product-card h4 {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .product-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-container {
+                position: relative;
+                top: auto;
+                right: auto;
+            }
+        }
     </style>
 </head>
 
 <header class="amazon-header">
-    <h3>AMAZON</h3>
+    <h3 style="color: #febd69;">AMAZON</h3>
     <nav>
         <ul>
             <li><a href="#">Home</a></li>
@@ -153,7 +243,7 @@
 </header>
 <div class="cart-container">
     <button onclick="go_to_cart()" class="cart-button">
-        <i class="fas fa-cart-plus"></i>
+        <i class="fa fa-shopping-cart"></i>
         Cart 
     </button>
 </div>
@@ -188,12 +278,12 @@
         <p class="colour clothing-field"><strong>Colour:</strong> <span id="colour-clothing">Not Available</span></p>
         <p class="size clothing-field"><strong>Size:</strong> <span id="size-clothing">Not Available</span></p>
         <p class="material clothing-field"><strong>Material:</strong> <span id="material-clothing">Not Available</span></p>
-        <button onclick="add_to_cart('{{ name |e }}')" class="btn btn-primary">Add to Cart</button>
-        <button class="btn btn-secondary">Buy Now</button>
+        <button onclick="add_to_cart('{{ name |e }}')" class="btn btn-primary" style="font-size: medium;">Add to Cart</button>
+        <button class="btn btn-secondary"style="font-size: medium;">Buy Now</button>
     </div>
 </div>
 
-<script>
+<script>      
     // Fetch product details from the API
     function load_product_details(name) {
         frappe.call({

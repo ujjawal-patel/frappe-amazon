@@ -3,38 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <title>Product Card</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Open Sans', sans-serif;
       background-color: #f9f9f9;
       margin: 0;
       padding: 0;
     }
 
-    .cart-container {
-      position: absolute;
-      top: 180px;
-      right: 300px;
-      z-index: 1000;
-    }
-
-    .cart-button {
-      background-color: #ffa200;
-      color: #fff;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1.2rem;
-      transition: background-color 0.3s ease;
-    }
-
     /* Product Container */
     .product-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));  /* Increased card size */
-      gap: 30px;  /* Increased gap between cards */
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
       padding: 30px;
       max-width: 1200px;
       margin: 0 auto;
@@ -44,7 +27,7 @@
     .product-card {
       border: 1px solid #e0e0e0;
       border-radius: 15px;
-      padding: 20px;  /* Increased padding */
+      padding: 20px;
       background-color: #fff;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -65,14 +48,16 @@
       height: auto;
       border-radius: 8px;
       margin-bottom: 20px;
+      object-fit: cover;
     }
 
     /* Product Title */
     .product-card h1 {
-      font-size: 1.7rem;  /* Increased font size */
+      font-size: 1.7rem;
       margin: 0 0 12px 0;
       color: #333;
       font-weight: 600;
+      text-align: center;
     }
 
     /* Product Details */
@@ -81,6 +66,7 @@
       color: #555;
       margin: 8px 0;
       line-height: 1.6;
+      text-align: center;
     }
 
     .product-card h4 strong {
@@ -98,37 +84,169 @@
     /* Responsive Design */
     @media (max-width: 800px) {
       .product-container {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));  /* Adjusted card size for small screens */
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       }
 
       .product-card h1 {
-        font-size: 1.4rem;  /* Smaller title for small screens */
+        font-size: 1.4rem;
       }
 
       .product-card h4 {
-        font-size: 1.1rem;  /* Smaller text for small screens */
+        font-size: 1.1rem;
       }
     }
 
     @media (max-width: 600px) {
       .product-container {
-        grid-template-columns: 1fr;  /* Single column on very small screens */
+        grid-template-columns: 1fr;
       }
+    }
 
-      .cart-container {
-        position: relative;
-        top: auto;
-        right: auto;
-      }
+    /* Add this to your CSS */
+
+@media (max-width: 500px) {
+  .amazon-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .amazon-header nav {
+    margin-bottom: 20px;
+  }
+
+  .search-bar {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .search-bar input {
+    width: 100%;
+  }
+
+  .cart-container {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .amazon-header nav ul {
+    flex-direction: column;
+  }
+
+  .amazon-header nav ul li {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+
+    /* Amazon Header Styling */
+    .amazon-header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1;
+    }
+
+    .amazon-logo {
+      display: flex;
+      align-items: center;
+      color: #febd69;
+    }
+
+    .amazon-header nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    .amazon-header nav ul li {
+      margin-right: 30px;
+    }
+
+    .amazon-header nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 20px;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+    }
+
+    .search-bar input {
+      padding: 15px;
+      border: none;
+      border-radius: 4px;
+      font-size: 18px;
+    }
+
+    .search-bar button {
+      padding: 15px 20px;
+      background-color: #febd69;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .cart-container {
+      margin-left: 20px;
+    }
+
+    .cart-button {
+      background-color: #febd69;
+      color: #fff;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .cart-button:hover {
+      background-color: #555;
     }
   </style>
 </head>
 <body>
-  <div class="cart-container">
-    <button onclick="go_to_cart()" class="cart-button">Cart</button>
+  <!-- Amazon Header Section -->
+  <div class="amazon-header">
+    <h4 class="amazon-logo">
+      <i class="fas fa-store" style="color: #febd69; margin-right: 10px;"></i>
+      AMAZON
+    </h4>
+    
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="search-bar">
+      <input type="text" placeholder="Search..." style="width: 500px;">
+      <button>Search</button>
+    </div>
+    <div class="cart-container">
+      <button onclick="go_to_cart()" class="cart-button">
+        <i class="fa fa-shopping-cart"></i>
+        Cart 
+    </button>
+    </div>
   </div>
 
-  <div class="product-container">
+  <!-- Product Container -->
+  <div class="product-container" style="margin-top: 80px;">
     <!-- Products will be injected here dynamically -->
   </div>
 
