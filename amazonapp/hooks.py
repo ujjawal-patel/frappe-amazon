@@ -245,3 +245,19 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+
+# website_routes = [
+#     {"from_route": "/products", "to_route": "amazonapp.api.get_context"},
+#     {"from_route": "/product/<product_name>", "to_route": "amazonapp.api.product_detail"},
+# ]
+website_routes = [
+    {
+        "from_route": "/product/<product_name>",
+        "to_route": "product_detail(<product_name>)",
+        "defaults": {
+            "product_name": ""
+        }
+    }
+]
+
+

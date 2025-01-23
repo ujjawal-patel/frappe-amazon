@@ -1,0 +1,51 @@
+{
+ "app": "frappe",
+ "charts": [],
+ "content": "[{\"id\":\"HBcYv3OofQ\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Amazon Admin</span>\",\"col\":12}},{\"id\":\"iCdFmK3jtm\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Products\",\"col\":4}},{\"id\":\"DcLlXLijZ5\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Completed Orders\",\"col\":4}},{\"id\":\"3cW4XAzJrd\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Users\",\"col\":4}},{\"id\":\"bZfoU65I4X\",\"type\":\"paragraph\",\"data\":{\"text\":\"All Orders\",\"col\":12}},{\"id\":\"tiax6V7vg9\",\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Orders\",\"col\":12}}]",
+ "creation": "2025-01-20 10:04:12.217366",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "color-energy-points",
+ "idx": 0,
+ "indicator_color": "pink",
+ "is_hidden": 0,
+ "label": "Amazon Admin",
+ "link_type": "DocType",
+ "links": [],
+ "modified": "2025-01-20 10:36:10.856048",
+ "modified_by": "Administrator",
+ "module": "Amazon Application",
+ "name": "Amazon Admin",
+ "number_cards": [
+  {
+   "label": "Users",
+   "number_card_name": "Users"
+  },
+  {
+   "label": "Products",
+   "number_card_name": "Products"
+  },
+  {
+   "label": "Total Completed Orders",
+   "number_card_name": "Total completed orders"
+  }
+ ],
+ "owner": "newuser@gmail.com",
+ "parent_page": "Amazon Admin",
+ "public": 1,
+ "quick_lists": [
+  {
+   "document_type": "Orders",
+   "label": "Orders",
+   "quick_list_filter": "[]"
+  }
+ ],
+ "roles": [],
+ "sequence_id": 23.0,
+ "shortcuts": [],
+ "title": "Amazon Admin",
+ "type": "Workspace"
+}

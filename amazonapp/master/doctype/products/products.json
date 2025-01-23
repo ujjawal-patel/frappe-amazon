@@ -1,0 +1,116 @@
+{
+ "actions": [],
+ "allow_guest_to_view": 1,
+ "allow_rename": 1,
+ "creation": "2025-01-06 15:53:25.409301",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "base_section",
+  "name1",
+  "descreption",
+  "price",
+  "category",
+  "image",
+  "product_details",
+  "on_sale",
+  "sale_percentage",
+  "route",
+  "is_published",
+  "image_kkke"
+ ],
+ "fields": [
+  {
+   "fieldname": "base_section",
+   "fieldtype": "Section Break",
+   "label": "Base"
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name"
+  },
+  {
+   "fieldname": "descreption",
+   "fieldtype": "Data",
+   "label": "Descreption"
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Float",
+   "label": "Price"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "default": "0",
+   "fieldname": "on_sale",
+   "fieldtype": "Check",
+   "label": "On Sale"
+  },
+  {
+   "fieldname": "sale_percentage",
+   "fieldtype": "Percent",
+   "label": "Sale Percentage"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "route"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_published",
+   "fieldtype": "Check",
+   "label": "Is Published"
+  },
+  {
+   "fieldname": "image_kkke",
+   "fieldtype": "Image"
+  },
+  {
+   "fieldname": "product_details",
+   "fieldtype": "Dynamic Link",
+   "label": "Product Details",
+   "options": "category"
+  }
+ ],
+ "has_web_view": 1,
+ "image_field": "image",
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-01-22 16:48:06.862149",
+ "modified_by": "Administrator",
+ "module": "Master",
+ "name": "Products",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "route": "products",
+ "show_title_field_in_link": 1,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "name1"
+}

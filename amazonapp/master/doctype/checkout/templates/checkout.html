@@ -1,0 +1,172 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+  <div style="max-width: 800px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
+    <h1 style="text-align: center; color: #333; margin-bottom: 20px;">Checkout</h1>
+    
+    <form id="checkout-form">
+      <!-- Shipping Information -->
+      <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        <h2 style="color: #555; margin-bottom: 10px;">Shipping Information</h2>
+        <label for="shipping-address" style="display: block; margin-bottom: 5px; color: #333;">Shipping Address:</label>
+        <input type="text" id="shipping-address" name="shipping_address" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;">
+      </div>
+
+      <!-- Payment Information -->
+      <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        <h2 style="color: #555; margin-bottom: 10px;">Payment Method</h2>
+        <label for="payment-method" style="display: block; margin-bottom: 5px; color: #333;">Select Payment Method:</label>
+        <select id="payment-method" name="payment_method" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;">
+          <option> </option>
+          <option value="Credit card">Credit Card</option>
+          <option value="Debit card">Debit Card</option>
+          <option value="UPI">UPI</option>
+          <option value="Cash on Delivery">Cash on Delivery</option>
+          <option value="Net Banking">Net Banking</option>
+        </select>
+
+        <!-- Credit Card Details Form (Hidden by Default) -->
+        <div id="card-details" style="display: none; margin-top: 15px;">
+          <label for="card-number" style="display: block; margin-bottom: 5px; color: #333;">Card Number:</label>
+          <input type="text" id="card-number" name="card_number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;">
+
+          <label for="card-expiry" style="display: block; margin-top: 10px; margin-bottom: 5px; color: #333;">Expiry Date:</label>
+          <input type="text" id="card-expiry" name="card_expiry" placeholder="MM/YY" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;">
+
+          <label for="card-cvv" style="display: block; margin-top: 10px; margin-bottom: 5px; color: #333;">CVV:</label>
+          <input type="text" id="card-cvv" name="card_cvv" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;">
+        </div>
+
+        <!-- Add UPI ID input field -->
+        <div id="upi-details" style="display: none; margin-top: 15px;">
+           <label for="upi-id" style="display: block; margin-bottom: 5px; color: #333;">UPI ID:</label>
+           <input type="text" id="upi-id" name="upi_id" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;">
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        <h2 style="color: #555; margin-bottom: 10px;">Order Summary</h2>
+        <ul style="list-style: none; padding: 0;">
+          {% for item in frappe.get_doc("Cart", doc.cart).items %}
+            {% set product = frappe.get_doc("Products", item.item) %}
+            <li style="display: flex; align-items: center; margin-bottom: 10px; padding: 10px; background: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+              <img src="{{ product.image }}" alt="Product Image" style="width: 60px; height: 60px; margin-right: 15px; border-radius: 5px;">
+              <div>
+                <p style="margin: 0; font-weight: bold; color: #333;">{{ product.name1 }}</p>
+                <p style="margin: 0; color: #777;">Price: ₹{{ product.price }}</p>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+        <p style="font-size: 18px; font-weight: bold; color: #333; margin-top: 10px; text-align: right;">Total: ₹{{ frappe.get_doc("Cart",doc.cart).total_amount }}</p>
+      </div>
+
+      <!-- Call-to-Action (CTA) -->
+      <button  type="submit" style="width: 100%; padding: 15px; background: #28a745; color: #fff; border: none; border-radius: 5px; font-size: 18px; cursor: pointer; transition: background 0.3s;">
+        Place Order
+      </button>
+    </form>
+
+    <script>
+   
+  // Add an event listener to the payment method select box
+  document.getElementById('payment-method').addEventListener('change', function(event) {
+  const paymentMethod = event.target.value;
+  const cardDetailsForm = document.getElementById('card-details');
+  const upiDetailsForm = document.getElementById('upi-details');
+
+  // Hide the card details form and UPI details form by default
+  cardDetailsForm.style.display = 'none';
+  upiDetailsForm.style.display = 'none';
+
+  // Show the card details form if the payment method is "Credit Card" or "Debit Card"
+  if (paymentMethod === 'Credit card' || paymentMethod === 'Debit card') {
+    cardDetailsForm.style.display = 'block';
+  }
+
+  // Show the UPI details form if the payment method is "UPI"
+  if (paymentMethod === 'UPI') {
+    upiDetailsForm.style.display = 'block';
+  }
+}); 
+   
+      // Generate a random tracking ID
+  function generateTrackingId() {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  const length = 8;
+  let trackingId = '';
+  for (let i = 0; i < length; i++) {
+    trackingId += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return trackingId;
+}
+
+// Set the tracking ID
+document.getElementById('checkout-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  // Gather form data
+  const shippingAddress = document.getElementById('shipping-address').value;
+  const paymentMethod = document.getElementById('payment-method').value;
+  const cardNumber = document.getElementById('card-number').value;
+  const cardExpiry = document.getElementById('card-expiry').value;
+  const cardCVV = document.getElementById('card-cvv').value;
+
+  // Generate a tracking ID
+  const trackingId = generateTrackingId();
+
+  // Call Frappe API to save data
+  frappe.call({
+    method: "frappe.client.set_value",
+    args: {
+      doctype: "Checkout",
+      name: "{{ frappe.session.user }}",
+      fieldname: {
+        address: shippingAddress,
+        payment: paymentMethod,
+        tracking_id: trackingId // Save the tracking ID
+      }
+    },
+    callback: function(response) {
+      if (response.message) {
+        // If data is saved successfully, call the create_order function
+        create_order(trackingId);
+      } else {
+        // Handle error
+        alert("There was an error saving your data. Please try again.");
+      }
+    }
+  });
+});
+
+function create_order(trackingId) {
+
+                  frappe.call({
+                    method: "amazonapp.api.checkout.create_order",
+                    args: {
+                        "user": frappe.session.user,
+                        "tracking_id": trackingId
+                    },
+                    callback: function(response) {
+                          if (response.message.message === "An order already exists for this user.") {
+                              frappe.msgprint("An order already exists for this user.");
+                      
+                          } else if (response.message) {
+                            frappe.msgprint("Order Placed. Tracking ID: " + trackingId); 
+                            frappe.msgprint("Redirecting to Home in 5 4 3 2 1...")
+                            setTimeout(function() {
+                            window.location.href = "/";
+                            }, 5000); 
+}
+                            else {
+                            frappe.msgprint("Something went wrong.");
+                        }
+                    }
+                });
+            }
+        
+  
+    </script>
+  </div>
+{% endblock %}
