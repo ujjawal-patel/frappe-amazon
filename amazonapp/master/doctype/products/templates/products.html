@@ -1,102 +1,161 @@
 {% extends "templates/web.html" %}
 
 {% block page_content %}
-<style>
-    /* Header Styling */
-    .amazon-header {
-        background-color: #ff9900;
-        color: white;
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .header-content {
-        display: flex;
-        align-items: center;
-        width: 100%;
-    }
-
-    .btn-search {
-        padding: 10px 15px;
-        background-color: #febd69;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .cart-container {
-        position: absolute;
-        top: 180px;
-        right: 300px;
-        z-index: 1000;
-    }
-
-    /* Product Details Styling */
-    .product-details {
-        display: flex;
-        margin: 20px;
-    }
-
-    .product-images {
-        flex: 1;
-        margin-right: 20px;
-    }
-
-    .main-image img {
-        width: 100%;
-        border-radius: 8px;
-    }
-
-    /* Product Info Styling */
-    .product-info {
-        flex: 2;
-    }
-
-    .product-info h1 {
-        font-size: 24px;
-        margin: 10px 0;
-    }
-
-    .rating {
-        margin: 10px 0;
-    }
-
-    .price {
-        font-size: 20px;
-        color: #b12704;
-    }
-
-    .btn-primary {
-        background-color: #ffa41c;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-right: 10px;
-    }
-
-    .btn-secondary {
-        background-color: #f0c14b;
-        border: 1px solid #a88734;
-        padding: 10px 15px;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    /* Hide fields by default */
-    .electronics-field,
-    .clothing-field {
-        display: none;
-    }
-</style>
+<head>
+    <title>Amazon</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+        }
+        
+        .amazon-header {
+            background-color: #ff9900;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .amazon-header nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        
+        .amazon-header nav ul li {
+            margin-right: 30px;
+        }
+        
+        .amazon-header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-bar input {
+            padding: 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+        }
+        
+        .search-bar button {
+            padding: 15px 20px;
+            background-color: #febd69;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .cart-container {
+            position: absolute;
+            top: 200px;
+            right: 300px;
+            z-index: 1000;
+        }
+        
+        .cart-button {
+            padding: 15px 20px;
+            background-color: #febd69;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            position: relative;
+            top: 10px;
+            right: 20px;
+        }
+        
+        .cart-button i {
+            margin-right: 15px;
+            font-size: 25px;
+        }
+        
+        .product-details {
+            display: flex;
+            margin: 30px;
+        }
+        
+        .product-images {
+            flex: 1;
+            margin-right: 30px;
+        }
+        
+        .main-image img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        
+        .product-info {
+            flex: 2;
+        }
+        
+        .product-info h1 {
+            font-size: 30px;
+            margin: 20px 0;
+        }
+        
+        .product-info p {
+            margin: 20px 0;
+            font-size: 20px;
+        }
+        
+        .product-description {
+            margin: 30px 0;
+        }
+        
+        .product-description h2 {
+            margin: 20px 0;
+            font-size: 25px;
+        }
+        
+        .product-description p {
+            margin: 20px 0;
+            font-size: 20px;
+        }
+        
+        /* Hide fields by default */
+        .electronics-field,
+        .clothing-field {
+            display: none;
+        }
+    </style>
+</head>
 
 <header class="amazon-header">
     <h3>AMAZON</h3>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Electronics</a></li>
+            <li><a href="#">Clothing</a></li>
+            <li><a href="#">Cart</a></li>
+        </ul>
+    </nav>
+    <div class="search-bar">
+        <input type="text" placeholder="Search products...">
+        <button class="btn-search">Search</button>
+    </div>
 </header>
 <div class="cart-container">
-    <button onclick="go_to_cart()" class="cart-button">Cart</button>
+    <button onclick="go_to_cart()" class="cart-button">
+        <i class="fas fa-cart-plus"></i>
+        Cart 
+    </button>
 </div>
 
 <div class="product-details amazon-style">
@@ -107,26 +166,28 @@
     </div>
     <div class="product-info">
         <h1 id="product-name">{{ name1 |e }}</h1>
+        <p class="price" id="price"><strong>Price:</strong> ₹ {{ price |e }}</p>
         <div class="rating">
             <span class="stars">★★★★☆</span>
             <span class="reviews">(123 reviews)</span>
         </div>
-        <p class="price" id="price"><strong>Price:</strong> ₹ {{ price |e }}</p>
-        <p class="description" id="description">{{ descreption |e }}</p>
-        
+        <div class="product-description">
+            <h2>Product Description</h2>
+            <p id="description">{{ descreption |e }}</p>
+        </div>
         <!-- Electronics Specific Fields -->
-<p class="brand electronics-field"><strong>Brand:</strong> <span id="brand-electronics">Not Available</span></p>
-<p class="model electronics-field"><strong>Model:</strong> <span id="model-electronics">Not Available</span></p>
-<p class="colour electronics-field"><strong>Colour:</strong> <span id="colour-electronics">Not Available</span></p>
-<p class="storage electronics-field"><strong>Storage:</strong> <span id="storage-electronics">Not Available</span></p>
-<p class="ram electronics-field"><strong>RAM:</strong> <span id="ram-electronics">Not Available</span></p>
-<p class="warranty electronics-field"><strong>Warranty:</strong> <span id="warranty-electronics">Not Available</span></p>
+        <p class="brand electronics-field"><strong>Brand:</strong> <span id="brand-electronics">Not Available</span></p>
+        <p class="model electronics-field"><strong>Model:</strong> <span id="model-electronics">Not Available</span></p>
+        <p class="colour electronics-field"><strong>Colour:</strong> <span id="colour-electronics">Not Available</span></p>
+        <p class="storage electronics-field"><strong>Storage:</strong> <span id="storage-electronics">Not Available</span></p>
+        <p class="ram electronics-field"><strong>RAM:</strong> <span id="ram-electronics">Not Available</span></p>
+        <p class="warranty electronics-field"><strong>Warranty:</strong> <span id="warranty-electronics">Not Available</span></p>
 
-<!-- Clothing Specific Fields -->
-<p class="brand clothing-field"><strong>Brand:</strong> <span id="brand-clothing">Not Available</span></p>
-<p class="colour clothing-field"><strong>Colour:</strong> <span id="colour-clothing">Not Available</span></p>
-<p class="size clothing-field"><strong>Size:</strong> <span id="size-clothing">Not Available</span></p>
-<p class="material clothing-field"><strong>Material:</strong> <span id="material-clothing">Not Available</span></p>  
+        <!-- Clothing Specific Fields -->
+        <p class="brand clothing-field"><strong>Brand:</strong> <span id="brand-clothing">Not Available</span></p>
+        <p class="colour clothing-field"><strong>Colour:</strong> <span id="colour-clothing">Not Available</span></p>
+        <p class="size clothing-field"><strong>Size:</strong> <span id="size-clothing">Not Available</span></p>
+        <p class="material clothing-field"><strong>Material:</strong> <span id="material-clothing">Not Available</span></p>
         <button onclick="add_to_cart('{{ name |e }}')" class="btn btn-primary">Add to Cart</button>
         <button class="btn btn-secondary">Buy Now</button>
     </div>
@@ -152,26 +213,26 @@
                     });
 
                     if (response.message.category === 'Electronics') {
-    // Show Electronics fields
-    document.querySelectorAll('.electronics-field').forEach(function (field) {
-        field.style.display = 'block';
-    });
-    document.getElementById("brand-electronics").innerText = response.message.brand || 'Not Available';
-    document.getElementById("model-electronics").innerText = response.message.model || 'Not Available';
-    document.getElementById("colour-electronics").innerText = response.message.colour || 'Not Available';
-    document.getElementById("storage-electronics").innerText = response.message.storage || 'Not Available';
-    document.getElementById("ram-electronics").innerText = response.message.ram || 'Not Available';
-    document.getElementById("warranty-electronics").innerText = response.message.warranty || 'Not Available';
-} else if (response.message.category === 'Clothing') {
-    // Show Clothing fields
-    document.querySelectorAll('.clothing-field').forEach(function (field) {
-        field.style.display = 'block';
-    });
-    document.getElementById("brand-clothing").innerText = response.message.brand || 'Not Available';
-    document.getElementById("colour-clothing").innerText = response.message.colour || 'Not Available';
-    document.getElementById("size-clothing").innerText = response.message.size || 'Not Available';
-    document.getElementById("material-clothing").innerText = response.message.material || 'Not Available';
-}
+                        // Show Electronics fields
+                        document.querySelectorAll('.electronics-field').forEach(function (field) {
+                            field.style.display = 'block';
+                        });
+                        document.getElementById("brand-electronics").innerText = response.message.brand || 'Not Available';
+                        document.getElementById("model-electronics").innerText = response.message.model || 'Not Available';
+                        document.getElementById("colour-electronics").innerText = response.message.colour || 'Not Available';
+                        document.getElementById("storage-electronics").innerText = response.message.storage || 'Not Available';
+                        document.getElementById("ram-electronics").innerText = response.message.ram || 'Not Available';
+                        document.getElementById("warranty-electronics").innerText = response.message.warranty || 'Not Available';
+                    } else if (response.message.category === 'Clothing') {
+                        // Show Clothing fields
+                        document.querySelectorAll('.clothing-field').forEach(function (field) {
+                            field.style.display = 'block';
+                        });
+                        document.getElementById("brand-clothing").innerText = response.message.brand || 'Not Available';
+                        document.getElementById("colour-clothing").innerText = response.message.colour || 'Not Available';
+                        document.getElementById("size-clothing").innerText = response.message.size || 'Not Available';
+                        document.getElementById("material-clothing").innerText = response.message.material || 'Not Available';
+                    }
                 } else {
                     alert("Product details not found!");
                 }
