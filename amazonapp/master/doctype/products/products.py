@@ -11,9 +11,13 @@ class Products(WebsiteGenerator):
 import frappe
 
 @frappe.whitelist()
-def get_products():
-    # Fetch all products with required fields
-    products = frappe.get_all("Products", fields=["*"])
+def get_products(category=None):
+    if category:
+        # Fetch all products with required fields
+        products = frappe.get_all("Products", fields=["*"], filters={"category": category})
+    else:
+        # Fetch all products with required fields
+        products = frappe.get_all("Products", fields=["*"])
 
     # Fetch additional details (brand, model, etc.) for each product
     for product in products:
