@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Cart Page</title>
     <!-- Integrated CSS -->
     <style>
@@ -159,75 +160,107 @@
         }
 
         /* Amazon Header Styling */
-        .amazon-header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1;
-        }
+    .amazon-header {
+      background-color: #333;
+      color: #fff;
+      padding: 0px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: absolute;
+      top: 20px;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      z-index: 1;
+    }
 
-        .amazon-header nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
+    .amazon-logo {
+      display: flex;
+      align-items: center;
+      color: #febd69;
+    }
 
-        .amazon-header nav ul li {
-            margin-right: 30px;
-        }
+    .amazon-header nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
 
-        .amazon-header nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 20px;
-        }
+    .amazon-header nav ul li {
+      margin-right: 30px;
+    }
 
-        .search-bar {
-            display: flex;
-            align-items: center;
-        }
+    .amazon-header nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 20px;
+    }
 
-        .search-bar input {
-            padding: 15px;
-            border: none;
-            border-radius: 4px;
-            font-size: 18px;
-        }
+    .search-bar {
+      display: flex;
+      align-items: center;
+    }
 
-        .search-bar button {
-            padding: 15px 20px;
-            background-color: #febd69;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 18px;
-        }
+    .search-bar input {
+      padding: 15px;
+      border: none;
+      border-radius: 4px;
+      font-size: 18px;
+    }
+
+    .search-bar button {
+      padding: 15px 20px;
+      background-color: #febd69;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .cart-container {
+      margin-left: 20px;
+    }
+
+    .cart-button {
+      background-color: #febd69;
+      color: #fff;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .cart-button:hover {
+      background-color: #555;
+    }
     </style>
 </head>
 <body>
     <!-- Amazon Header Section -->
-    <div class="amazon-header">
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <button>Search</button>
-        </div>
+  <div class="amazon-header">
+    <h4 class="amazon-logo">
+      <i class="fas fa-store" style="color: #febd69; margin-right: 10px;"></i>
+      AMAZON
+    </h4>
+    
+    <nav>
+      <ul>
+        <li><a href="http://127.0.0.1:8000/">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="search-bar">
+      <input type="text" placeholder="Search..." style="width: 500px;">
+      <button>Search</button>
     </div>
-
+    
+    </div>
+  </div>
     <!-- Cart Display Section -->
     <div id="cart" style="margin-top: 80px;">
         {% if items %}
