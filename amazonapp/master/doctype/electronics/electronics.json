@@ -54,7 +54,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-20 12:29:49.145624",
+ "modified": "2025-01-24 16:44:58.581797",
  "modified_by": "Administrator",
  "module": "Master",
  "name": "Electronics",
@@ -77,5 +77,5 @@
  "sort_field": "creation",
  "sort_order": "DESC",
  "states": [],
- "title_field": "brand"
+ "title_field": "model"
 }

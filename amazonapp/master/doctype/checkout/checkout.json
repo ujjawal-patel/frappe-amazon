@@ -12,6 +12,7 @@
   "cart",
   "address",
   "payment",
+  "payment_details",
   "order_created",
   "route",
   "is_published"
@@ -32,13 +33,17 @@
   {
    "fieldname": "address",
    "fieldtype": "Data",
-   "label": "Address"
+   "in_list_view": 1,
+   "label": "Address",
+   "reqd": 1
   },
   {
    "fieldname": "payment",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Payment ",
-   "options": "Credit card\nDebit card\nUPI\nCash on Delivery\nWallet\nNet banking"
+   "options": "Credit card\nDebit card\nUPI\nCash on Delivery\nWallet\nNet banking",
+   "reqd": 1
   },
   {
    "default": "0",
@@ -61,12 +66,17 @@
    "fieldname": "is_published",
    "fieldtype": "Check",
    "label": "Is Published"
+  },
+  {
+   "fieldname": "payment_details",
+   "fieldtype": "Data",
+   "label": "Payment details"
   }
  ],
  "has_web_view": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-17 17:16:49.625262",
+ "modified": "2025-01-25 15:55:05.032233",
  "modified_by": "Administrator",
  "module": "Master",
  "name": "Checkout",

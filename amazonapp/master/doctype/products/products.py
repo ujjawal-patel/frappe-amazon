@@ -11,7 +11,7 @@ class Products(WebsiteGenerator):
 import frappe
 
 @frappe.whitelist()
-def get_products(category=None):
+def get_products(category=None, search_query=None):
     if category:
         # Fetch all products with required fields
         products = frappe.get_all("Products", fields=["*"], filters={"category": category})

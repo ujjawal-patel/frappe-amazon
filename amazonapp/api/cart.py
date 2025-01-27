@@ -5,6 +5,19 @@ def get_cart(user):
     return frappe.get_all("Cart", filters={"user": user}, fields=["*"])
 
 @frappe.whitelist()
+def get_cart_count():
+  user= frappe.session.user
+  try:
+    cart = frappe.get_doc("Cart", {"user": user})
+    if cart:
+      return len(cart.items)
+    else:
+      return 0
+  except Exception as e:
+    frappe.log_error(e)
+    return None
+
+@frappe.whitelist()
 def add_to_cart(name):
     user = frappe.session.user
 
