@@ -193,7 +193,7 @@
       <ul>
         <li><a href="#" onclick="filterProducts('Electronics')">Electronics</a></li>
         <li><a href="#" onclick="filterProducts('Clothing')">Clothing</a></li>
-        <li><a href="#">Stationary</a></li>
+        <li><a href="#" onclick="filterProducts('Stationary')">Stationary</a></li>
       </ul>
     </nav>
     
@@ -248,6 +248,12 @@
         <p class="colour clothing-field"><strong>Colour:</strong> <span id="colour-clothing">Not Available</span></p>
         <p class="size clothing-field"><strong>Size:</strong> <span id="size-clothing">Not Available</span></p>
         <p class="material clothing-field"><strong>Material:</strong> <span id="material-clothing">Not Available</span></p>
+
+        <!-- Stationary Specific Fields -->
+        <p class="item stationary-field"><strong>Item:</strong> <span id="item-stationary">Not Available</span></p>
+        <p class="brand stationary-field"><strong>Brand:</strong> <span id="brand-stationary">Not Available</span></p>
+        <p class="colour stationary-field"><strong>Colour:</strong> <span id="colour-stationary">Not Available</span></p>
+
         <button onclick="add_to_cart('{{ name |e }}')" class="btn btn-primary" style="font-size: medium;">Add to Cart</button>
         <button class="btn btn-secondary"style="font-size: medium;">Buy Now</button>
     </div>
@@ -268,12 +274,12 @@
                     document.getElementById("description").innerText = response.message.description;
 
                     // Hide all fields initially
-                    document.querySelectorAll('.electronics-field, .clothing-field').forEach(function (field) {
+                    document.querySelectorAll('.electronics-field, .clothing-field, .stationary-field').forEach(function (field) {
                         field.style.display = 'none';
                     });
 
                     if (response.message.category === 'Electronics') {
-                        // Show Electronics fields
+                        //  Electronics fields
                         document.querySelectorAll('.electronics-field').forEach(function (field) {
                             field.style.display = 'block';
                         });
@@ -284,7 +290,7 @@
                         document.getElementById("ram-electronics").innerText = response.message.ram || 'Not Available';
                         document.getElementById("warranty-electronics").innerText = response.message.warranty || 'Not Available';
                     } else if (response.message.category === 'Clothing') {
-                        // Show Clothing fields
+                        //  Clothing fields
                         document.querySelectorAll('.clothing-field').forEach(function (field) {
                             field.style.display = 'block';
                         });
@@ -292,6 +298,15 @@
                         document.getElementById("colour-clothing").innerText = response.message.colour || 'Not Available';
                         document.getElementById("size-clothing").innerText = response.message.size || 'Not Available';
                         document.getElementById("material-clothing").innerText = response.message.material || 'Not Available';
+                    } else if (response.message.category === 'Stationary') {
+                        //  Stationary fields
+                        document.querySelectorAll('.stationary-field').forEach(function (field) {
+                            field.style.display = 'block';
+                        });
+                        document.getElementById("item-stationary").innerText = response.message.item || 'Not Available';
+                        document.getElementById("brand-stationary").innerText = response.message.brand || 'Not Available';
+                        document.getElementById("colour-stationary").innerText = response.message.colour || 'Not Available';
+
                     }
                 } else {
                     alert("Product details not found!");

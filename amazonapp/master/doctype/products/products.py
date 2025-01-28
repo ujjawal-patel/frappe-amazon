@@ -24,17 +24,16 @@ def get_products(category=None, search_query=None):
         if product.product_details:
             if product.category == "Electronics":
                 electronics_details = frappe.get_doc("Electronics", product["product_details"])
-                
                 product["brand"] = electronics_details.brand
-                product["model"] = electronics_details.model
-                product["colour"] = electronics_details.colour
+    
             elif product.category == "Clothing":
                 clothing_details = frappe.get_doc("Clothing", product["product_details"])
-                
                 product["brand"] = clothing_details.brand
-                product["material"] = clothing_details.material
-                product["colour"] = clothing_details.colour
-                product["size"] = clothing_details.size
+
+            elif product.category == "Stationary":
+                stationary_details = frappe.get_doc("Stationary", product["product_details"])
+                product["brand"] = stationary_details.brand
+        
             
     return products
 
@@ -76,6 +75,15 @@ def get_product_details(product_name):
                 "colour": clothing_details.colour,
                 "size": clothing_details.size
             })
+        elif product.category == "Stationary":
+            stationary_details = frappe.get_doc("Stationary", product.product_details)
+            if not stationary_details:
+                return {"message": "Stationary details not found "}
+            product_details.update({
+                "item": stationary_details.item,
+                "colour": stationary_details.colour,
+                "brand": stationary_details.brand
+            })        
         
         return product_details
     except Exception as e:

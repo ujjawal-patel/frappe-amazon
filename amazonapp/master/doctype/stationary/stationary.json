@@ -6,7 +6,8 @@
  "engine": "InnoDB",
  "field_order": [
   "item",
-  "colour"
+  "colour",
+  "brand"
  ],
  "fields": [
   {
@@ -18,11 +19,16 @@
    "fieldname": "colour",
    "fieldtype": "Color",
    "label": "colour"
+  },
+  {
+   "fieldname": "brand",
+   "fieldtype": "Data",
+   "label": "Brand"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-25 11:14:58.435200",
+ "modified": "2025-01-28 09:39:02.161078",
  "modified_by": "Administrator",
  "module": "Master",
  "name": "Stationary",
@@ -41,7 +47,9 @@
    "write": 1
   }
  ],
+ "show_title_field_in_link": 1,
  "sort_field": "creation",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "item"
 }
