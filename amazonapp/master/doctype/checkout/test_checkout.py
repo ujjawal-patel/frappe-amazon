@@ -13,18 +13,18 @@ IGNORE_TEST_RECORD_DEPENDENCIES = []  # eg. ["User"]
 
 
 class UnitTestCheckout(UnitTestCase):
-	"""
-	Unit tests for Checkout.
-	Use this class for testing individual functions and methods.
-	"""
+    """
+    Unit tests for Checkout.
+    Use this class for testing individual functions and methods.
+    """
 
-	pass
+    pass
 
 
 class IntegrationTestCheckout(IntegrationTestCase):
-	"""
-	Integration tests for Checkout.
-	Use this class for testing interactions between multiple components.
-	"""
+    """
+    Integration tests for Checkout.
+    Use this class for testing interactions between multiple components.
+    """
 
-	pass
+    pass

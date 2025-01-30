@@ -6,5 +6,5 @@ from frappe.website.website_generator import WebsiteGenerator
 
 
 class Cart(WebsiteGenerator):
-   
+
     pass

@@ -13,18 +13,18 @@ IGNORE_TEST_RECORD_DEPENDENCIES = []  # eg. ["User"]
 
 
 class UnitTestElectronics(UnitTestCase):
-	"""
-	Unit tests for Electronics.
-	Use this class for testing individual functions and methods.
-	"""
+    """
+    Unit tests for Electronics.
+    Use this class for testing individual functions and methods.
+    """
 
-	pass
+    pass
 
 
 class IntegrationTestElectronics(IntegrationTestCase):
-	"""
-	Integration tests for Electronics.
-	Use this class for testing interactions between multiple components.
-	"""
+    """
+    Integration tests for Electronics.
+    Use this class for testing interactions between multiple components.
+    """
 
-	pass
+    pass

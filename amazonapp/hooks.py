@@ -254,10 +254,6 @@ website_routes = [
     {
         "from_route": "/product/<product_name>",
         "to_route": "product_detail(<product_name>)",
-        "defaults": {
-            "product_name": ""
-        }
+        "defaults": {"product_name": ""},
     }
 ]
-
-

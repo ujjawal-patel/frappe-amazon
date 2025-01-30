@@ -13,18 +13,18 @@ IGNORE_TEST_RECORD_DEPENDENCIES = []  # eg. ["User"]
 
 
 class UnitTestProducts(UnitTestCase):
-	"""
-	Unit tests for Products.
-	Use this class for testing individual functions and methods.
-	"""
+    """
+    Unit tests for Products.
+    Use this class for testing individual functions and methods.
+    """
 
-	pass
+    pass
 
 
 class IntegrationTestProducts(IntegrationTestCase):
-	"""
-	Integration tests for Products.
-	Use this class for testing interactions between multiple components.
-	"""
+    """
+    Integration tests for Products.
+    Use this class for testing interactions between multiple components.
+    """
 
-	pass
+    pass

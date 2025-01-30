@@ -13,18 +13,18 @@ IGNORE_TEST_RECORD_DEPENDENCIES = []  # eg. ["User"]
 
 
 class UnitTestCartItems(UnitTestCase):
-	"""
-	Unit tests for CartItems.
-	Use this class for testing individual functions and methods.
-	"""
+    """
+    Unit tests for CartItems.
+    Use this class for testing individual functions and methods.
+    """
 
-	pass
+    pass
 
 
 class IntegrationTestCartItems(IntegrationTestCase):
-	"""
-	Integration tests for CartItems.
-	Use this class for testing interactions between multiple components.
-	"""
+    """
+    Integration tests for CartItems.
+    Use this class for testing interactions between multiple components.
+    """
 
-	pass
+    pass

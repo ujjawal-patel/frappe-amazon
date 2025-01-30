@@ -34,16 +34,14 @@
    "fieldname": "address",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Address",
-   "reqd": 1
+   "label": "Address"
   },
   {
    "fieldname": "payment",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Payment ",
-   "options": "Credit card\nDebit card\nUPI\nCash on Delivery\nWallet\nNet banking",
-   "reqd": 1
+   "options": "Credit card\nDebit card\nUPI\nCash on Delivery\nWallet\nNet banking"
   },
   {
    "default": "0",
@@ -76,7 +74,7 @@
  "has_web_view": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-01-25 15:55:05.032233",
+ "modified": "2025-01-28 16:22:29.132692",
  "modified_by": "Administrator",
  "module": "Master",
  "name": "Checkout",
