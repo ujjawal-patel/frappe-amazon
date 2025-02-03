@@ -13,9 +13,8 @@ import frappe
 
 
 @frappe.whitelist()
-def search_products(self, query):
-    print("**********************************************")
-    print(query)
+def search_products(query):
+    
     products = frappe.db.sql(
         """
     SELECT * FROM `tabProducts` WHERE

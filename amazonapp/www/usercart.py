@@ -2,9 +2,7 @@ import frappe
 
 
 def get_context(context):
-    cart = frappe.get_all(
-        "Cart", filters={"user": frappe.session.user, "is_completed": False}, fields="*"
-    )
+    cart = frappe.get_all("Cart", filters={"user": frappe.session.user, "is_completed": False}, fields="*")
 
     if cart:
         cart_items = frappe.get_all(

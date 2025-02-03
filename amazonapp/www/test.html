@@ -1,3 +1,8 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,8 +27,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: absolute;
-      top: 50px;
+      position: fixed;
+      top: 0;
       left: 0;
       width: 100%;
       height: 80px;
@@ -222,32 +227,38 @@
     }
 
     .product-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      padding: 30px;
-      max-width: 1200px;
-      margin: 0 auto;
-      margin-top: 80px;
-    }
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 150px;
+}
 
-    @media (max-width: 1200px) {
-      .product-container {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      }
-    }
+@media (max-width: 1200px) {
+  .product-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
 
-    @media (max-width: 800px) {
-      .product-container {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      }
-    }
+@media (max-width: 800px) {
+  .product-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
-    @media (max-width: 600px) {
-      .product-container {
-        grid-template-columns: 1fr;
-      }
-    }
+@media (max-width: 600px) {
+  .product-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 400px) {
+  .product-container {
+    grid-template-columns: 1fr;
+  }
+}
 
     .product-card {
       border: 1px solid #e0e0e0;
@@ -259,7 +270,8 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      height: 100%;
+      height: 95%;
+
     }
 
     @media (max-width: 1200px) {
@@ -289,7 +301,7 @@
     }
 
     .product-card h1 {
-      font-size: 1.7rem;
+      font-size: 1.4rem;
       margin: 0 0 12px 0;
       color: #333;
       font-weight: 600;
@@ -321,7 +333,8 @@
   <div class="amazon-header">
     <h4 class="amazon-logo">
       <i class="fas fa-store" style="color: #febd69; margin-right: 10px;"></i>
-      AMAZON
+      PRODUCTS <br>
+       MASTER
     </h4>
 
     <nav>
@@ -358,17 +371,23 @@
 
   </div>
 
-
   <!-- Product Container -->
   <div class="product-container">
-    <!-- Products will be injected here dynamically -->
+    {% for product in products %}
+      <a href="/{{ product.route }}">
+        <div class="product-card" id="{{ product.name }}">
+          <img src="{{ product.image or '/assets/no-image.png' }}" alt="{{ product.name1 }}">
+          <h1>{{ product.name1 }}</h1>
+          <h4>
+            <strong>Price:</strong> <span class="price">₹ {{ product.price }}</span><br>
+            <strong>Brand:</strong> {{ product.brand }}<br>
+          </h4>
+        </div>
+      </a>
+    {% endfor %}
   </div>
 
   <script>
-
-    document.addEventListener("DOMContentLoaded", function () {
-      getProducts();
-    });
 
     document.getElementById("category-select").addEventListener("change", function () {
       filterProducts(this.value);
@@ -377,62 +396,60 @@
     document.getElementById("search-button").addEventListener("click", searchProducts);
 
     function searchProducts() {
-      console.log("Search button clicked")
-      const searchQuery = document.getElementById("search-input").value.trim();
-      if (searchQuery) {
-        frappe.call({
-          method: "amazonapp.master.doctype.products.products.search_products",
-          args: {
-            query: searchQuery,
-          },
-          callback: function (response) {
-            if (response.message) {
-              const products = response.message;
-              renderProducts(products);
-            } else {
-              console.error("No products found");
-            }
-          },    
-        });
-      } else {
-        getProducts();
-      }
-    } 
+  console.log("Search button clicked")
+  const searchQuery = document.getElementById("search-input").value.trim();
+  if (searchQuery) {
+    frappe.call({
+      method: "amazonapp.master.doctype.products.products.search_products",
+      args: {
+        query: searchQuery,
+      },
+      callback: function (response) {
+        if (response.message) {
+          const products = response.message;
+          console.log(products)
+          renderProducts(products);
+        } else {
+          console.error("No products found");
+        }
+      },    
+    });
+  } else {
+    // Pass an empty array instead of an object with a products property
+    renderProducts([]);
+  }
+} 
 
-    function getProducts() {
-      frappe.call({
-        method: "amazonapp.master.doctype.products.products.get_products",
-        callback: function (response) {
-          if (response.message) {
-            const products = response.message;
-            renderProducts(products);
-          } else {
-            console.error("No products found.");
-          }
-        },
-      });
-    }
-    
-    function renderProducts(products) {
-      const container = document.querySelector(".product-container");
-      container.innerHTML = "";
+function renderProducts(products) {
+  // Check if products is an array and not null or undefined
+  if (Array.isArray(products)) {
+    const container = document.querySelector(".product-container");
+    container.innerHTML = "";
 
-      products.forEach((product) => {
+    products.forEach((product) => {
+      // Check if product is not null or undefined
+      if (product) {
         const productCard = `
-          <a href="/${product.route}">
-            <div class="product-card" id="${product.name}">
-              <img src="${product.image || '/assets/no-image.png'}" alt="${product.name1}">
-              <h1>${product.name1}</h1>
-              <h4>
-                <strong>Price:</strong> <span class="price">₹ ${product.price}</span><br>
-                <strong>Brand:</strong> ${product.brand}<br>
-              </h4>
-            </div>
-          </a>
-        `;
+  <a href="/${product[25]}">
+    <div class="product-card" id="${product[28]}">
+      <img src="${product[23] || '/path/to/no-image.png'}" alt="${product[11]}">
+      <h1>${product[11]}</h1>
+      <h4>
+        <strong>Price:</strong> <span class="price">₹ ${product[13]}</span><br>
+        <strong>Brand:</strong> ${product[17]}<br>
+      </h4>
+    </div>
+  </a>
+`;
         container.innerHTML += productCard;
-      });
-    }
+      } else {
+        console.error("Product is null or undefined");
+      }
+    });
+  } else {
+    console.error("Products is not an array");
+  }
+}
 
     function filterProducts(category) {
       frappe.call({
@@ -468,11 +485,11 @@
           },
         });
       } else {
-        console.error("User   not logged in.");
+        console.error("User        not logged in.");
       }
     }
-
-    
   </script>
 </body>
 </html>
+
+{% endblock %}
