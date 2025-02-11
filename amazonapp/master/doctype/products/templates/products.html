@@ -216,7 +216,7 @@ body {
     </div>
     <nav>
       <ul>
-        <li><a href="http://127.0.0.1:8000/">Home</a></li>
+        <li><a href="/test">Home</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
@@ -269,7 +269,7 @@ body {
         <p class="colour stationary-field"><strong>Colour:</strong> <span id="colour-stationary">Not Available</span></p>
 
         <button onclick="add_to_cart('{{ name |e }}')" class="btn btn-primary" style="font-size: medium;">Add to Cart</button>
-        <button class="btn btn-secondary"style="font-size: medium;">Buy Now</button>
+        <button onclick="buy_now('{{ name |e }}')" class="btn btn-secondary" style="font-size: medium;">Buy Now</button>
     </div>
 </div>
 
@@ -346,6 +346,21 @@ body {
         });
     }
 
+    function buy_now(name) {
+    // Add the item to the cart
+    fetch("http://127.0.0.1:8000/api/method/amazonapp.api.cart.add_to_cart?name=" + name)
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                // Call the checkout page function
+                checkout_page();
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
     // Function to add a product to the cart
     function add_to_cart(name) {
         fetch("http://127.0.0.1:8000/api/method/amazonapp.api.cart.add_to_cart?name=" + name)
@@ -359,6 +374,23 @@ body {
                 console.error('Error:', error);
             });
     }
+
+    function checkout_page(){
+            fetch(`/api/method/amazonapp.api.checkout.create_checkout`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        alert("checking out...")
+                        window.location.href = '/checkouts';
+                    } else {
+                        alert("Something went wrong");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(" An error occurred while checking out.");
+                });
+        }
 
     // Call the load_product_details function on page load
     document.addEventListener('DOMContentLoaded', function () {

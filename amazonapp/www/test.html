@@ -2,7 +2,6 @@
 
 {% block page_content %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,8 +26,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: fixed;
-      top: 0;
+      position: absolute;
+      top: 50px;
       left: 0;
       width: 100%;
       height: 80px;
@@ -227,38 +226,38 @@
     }
 
     .product-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-  padding: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
-  margin-top: 150px;
-}
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      padding: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      margin-top: 150px;
+    }
 
-@media (max-width: 1200px) {
-  .product-container {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
+    @media (max-width: 1200px) {
+      .product-container {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
 
-@media (max-width: 800px) {
-  .product-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
+    @media (max-width: 800px) {
+      .product-container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
 
-@media (max-width: 600px) {
-  .product-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+    @media (max-width: 600px) {
+      .product-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
 
-@media (max-width: 400px) {
-  .product-container {
-    grid-template-columns: 1fr;
-  }
-}
+    @media (max-width: 400px) {
+      .product-container {
+        grid-template-columns: 1fr;
+      }
+    }
 
     .product-card {
       border: 1px solid #e0e0e0;
@@ -271,7 +270,6 @@
       flex-direction: column;
       justify-content: space-between;
       height: 95%;
-
     }
 
     @media (max-width: 1200px) {
@@ -326,6 +324,7 @@
       font-weight: 700;
       font-size: 1.4rem;
     }
+
   </style>
 </head>
 <body>
@@ -352,7 +351,7 @@
     </div>
     <nav>
       <ul>
-        <li><a href="http://127.0.0.1:8000/">Home</a></li>
+        <li><a href="/test">Home</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
@@ -387,69 +386,8 @@
     {% endfor %}
   </div>
 
+
   <script>
-
-    document.getElementById("category-select").addEventListener("change", function () {
-      filterProducts(this.value);
-    });
-
-    document.getElementById("search-button").addEventListener("click", searchProducts);
-
-    function searchProducts() {
-  console.log("Search button clicked")
-  const searchQuery = document.getElementById("search-input").value.trim();
-  if (searchQuery) {
-    frappe.call({
-      method: "amazonapp.master.doctype.products.products.search_products",
-      args: {
-        query: searchQuery,
-      },
-      callback: function (response) {
-        if (response.message) {
-          const products = response.message;
-          console.log(products)
-          renderProducts(products);
-        } else {
-          console.error("No products found");
-        }
-      },    
-    });
-  } else {
-    // Pass an empty array instead of an object with a products property
-    renderProducts([]);
-  }
-} 
-
-function renderProducts(products) {
-  // Check if products is an array and not null or undefined
-  if (Array.isArray(products)) {
-    const container = document.querySelector(".product-container");
-    container.innerHTML = "";
-
-    products.forEach((product) => {
-      // Check if product is not null or undefined
-      if (product) {
-        const productCard = `
-  <a href="/${product[25]}">
-    <div class="product-card" id="${product[28]}">
-      <img src="${product[23] || '/path/to/no-image.png'}" alt="${product[11]}">
-      <h1>${product[11]}</h1>
-      <h4>
-        <strong>Price:</strong> <span class="price">₹ ${product[13]}</span><br>
-        <strong>Brand:</strong> ${product[17]}<br>
-      </h4>
-    </div>
-  </a>
-`;
-        container.innerHTML += productCard;
-      } else {
-        console.error("Product is null or undefined");
-      }
-    });
-  } else {
-    console.error("Products is not an array");
-  }
-}
 
     function filterProducts(category) {
       frappe.call({
@@ -468,6 +406,76 @@ function renderProducts(products) {
       });
     }
 
+    function renderProducts(products) {
+  // Check if products is an array and not null or undefined
+  if (Array.isArray(products)) {
+    const container = document.querySelector(".product-container");
+    container.innerHTML = "";
+
+    products.forEach((product) => {
+      // Check if product is not null or undefined
+      if (product) {
+        const productCard = `
+          <a href="/${product.route}">
+            <div class="product-card" id="${product.name}">
+              <img src="${product.image || '/path/to/no-image.png'}" alt="${product.name1}">
+              <h1>${product.name1}</h1>
+              <h4>
+                <strong>Price:</strong> <span class="price">₹ ${product.price}</span><br>
+                <strong>Brand:</strong> ${product.brand}<br>
+              </h4>
+            </div>
+          </a>
+        `;
+        container.innerHTML += productCard;
+      } else {
+        console.error("Product is null or undefined");
+      }
+    });
+  } else {
+    console.error("Products is not an array");
+  }
+}
+
+    document.getElementById("category-select").addEventListener("change", function () {
+      currentPage = 1;
+      filterProducts(this.value);
+    });
+
+    document.getElementById("search-button").addEventListener("click", searchProducts);
+
+    function searchProducts() {
+      console.log("Search button clicked")
+      const searchQuery = document.getElementById("search-input").value.trim();
+      if (searchQuery) {
+        frappe.call({
+          method: "amazonapp.master.doctype.products.products.search_products",
+          args: {
+            query: searchQuery,
+          },
+          callback: function (response) {
+      if (response.message) {
+        const products = response.message.map((product) => {
+          return {
+            name: product[28],
+            name1: product[11],
+            image: product[23],
+            price: product[13],
+            brand: product[17],
+            route: product[25],
+          };
+        });
+        renderProducts(products);
+      } else {
+        console.error("No products found");
+            }
+          },    
+        });
+      } else {
+        // Pass an empty array instead of an object with a products property
+        renderProducts([]);
+      }
+    } 
 
     function go_to_cart() {
       if (frappe.session.user) {
@@ -485,7 +493,7 @@ function renderProducts(products) {
           },
         });
       } else {
-        console.error("User        not logged in.");
+        console.error("User         not logged in.");
       }
     }
   </script>

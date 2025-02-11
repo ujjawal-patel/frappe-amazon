@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>About Us</title>
+    <script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css">
+    <style>
+        
+body {
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #f9f9f9, #e0e0e0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Amazon Header Styling */
+
+.amazon-header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 97.5%;
+    height: 40px;
+    z-index: 1;
+}
+
+.amazon-logo {
+    display: flex;
+    align-items: center;
+    color: #febd69;
+    margin: 0;
+    padding: 0;
+}
+
+.amazon-header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.amazon-header nav ul li {
+    margin-right: 30px;
+}
+
+.amazon-header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    padding-left: 100px;
+}
+
+.search-bar input {
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+.search-bar button {
+    padding: 15px 20px;
+    background-color: #febd69;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.cart-container {
+      margin-left: 20px;
+      display: inline-block;
+      position: relative;
+      z-index: 1;
+    }
+
+.cart-button {
+      background-color: #febd69;
+      color: #fff;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background-color 0.3s ease;
+      position: relative;
+    }
+.cart-count-box {
+      position: relative;
+      display: inline-block;
+    }
+
+.cart-count {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      color: #fff;
+      font-weight: bold;
+    }
+
+/* About Page Styling */
+
+.about-container {
+    margin-top: 200px;
+    padding: 40px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+}
+
+.about-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.about-content {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.about-content img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.about-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.about-content li {
+    margin-bottom: 10px;
+}
+
+.about-content li::before {
+    content: "\2022";
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #007bff;
+    margin-right: 10px;
+}
+
+.about-footer {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.about-footer a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.about-footer a:hover {
+    color: #0056b3;
+}
+    </style>
+</head>
+<body>
+    <div class="amazon-header">
+        <h2 class="amazon-logo">
+          <i class="fas fa-store" style="color: #febd69; margin-right: 10px;"></i>
+          PRODUCTS MASTER
+        </h2>
+        <div class="search-bar">
+          <input type="text" id="search-input" placeholder="Search..." style="width: 500px;">
+          <button id="search-button">Search</button>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="/test">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </nav>
+        
+    </div>
+
+    <!-- About Page Content -->
+    <div class="about-container">
+        <h2 class="about-header">About Us</h2>
+        <div class="about-content">
+            <p>Products Master is an e-commerce platform that aims to provide a seamless shopping experience for our customers.</p>
+            <img src="meril_building.jpg" style="width: 100%; height: 400px; object-fit: cover;">
+            <h3>Our Mission</h3>
+            <ul>
+                <li>Provide a user-friendly and secure online shopping experience.</li>
+                <li>Offer a wide range of products at competitive prices.</li>
+                <li>Ensure timely and efficient delivery of products.</li>
+                <li>Provide excellent customer service and support.</li>
+            </ul>
+        </div>
+        
+        <!-- Virtual Tour Section -->
+        <h3>Explore Our Store Virtually</h3>
+        <div id="panorama" style="width: 100%; height: 500px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+        <script>
+            pannellum.viewer('panorama', {
+                "type": "equirectangular",
+                "panorama": "istockphoto-1355378162-1024x1024.jpg", 
+                "autoLoad": true,
+                "showControls": true,
+                "pitch": 10,
+                "yaw": 180,
+                "hfov": 110
+            });
+        </script>
+
+        <div class="about-footer">
+            <p>Want to know more about us? <a href="#">Contact Us</a></p>
+            <p style="text-align: center; font-size: 14px; opacity: 0.7; font-family: Arial, sans-serif;">&copy; 2025 Products Master. All rights reserved. Copyright Ujjawal Patel.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -4,16 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
   <title>Products Master</title>
-  <style>
-    /* styles.css */
+   <style>
 
     body {
-      font-family: 'Open Sans', sans-serif;
-      background-color: #f9f9f9;
-      margin: 0;
-      padding: 0;
-    }
+  font-family: 'Open Sans', sans-serif;
+  background-image: linear-gradient(to right, #f9f9f9, #febd69, #febd69);
+  background-size: 300% 100%;
+  
+  margin: 0;
+  padding: 0;
+}
+
 
     .amazon-header {
       background-color: #333;
@@ -62,7 +65,7 @@
       margin: 0;
       padding: 0;
       display: flex;
-    }
+     }
 
     @media (max-width: 1200px) {
       .amazon-header nav ul {
@@ -314,7 +317,41 @@
       font-weight: 700;
       font-size: 1.4rem;
     }
-  </style>
+
+    del {
+      text-decoration: line-through;
+    }
+
+    .discounted-price {
+  color: #e67e22; 
+  font-weight: bold;
+}
+
+   .pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-button {
+  background-color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.pagination-button.active {
+  background-color: #febd69;
+  color: #fff;
+}
+
+.pagination-button:hover {
+  background-color: #e0e0e0;
+} 
+  </style>  
 </head>
 <body>
   <!-- Amazon Header Section -->
@@ -339,8 +376,8 @@
     </div>
     <nav>
       <ul>
-        <li><a href="http://127.0.0.1:8000/">Home</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
     </nav>
@@ -399,13 +436,21 @@
       }
     } 
 
+    // function getProducts(page = 1, limit = 10) {
     function getProducts() {
+
       frappe.call({
         method: "amazonapp.master.doctype.products.products.get_products",
+        // args:{
+        //   page: page,
+        //   limit: limit,
+        // },
         callback: function (response) {
           if (response.message) {
             const products = response.message;
+            // renderProducts(products, page, limit);
             renderProducts(products);
+
           } else {
             console.error("No products found.");
           }
@@ -413,25 +458,60 @@
       });
     }
     
-    function renderProducts(products) {
-      const container = document.querySelector(".product-container");
-      container.innerHTML = "";
+    // function renderProducts(products, page, limit) {
+      function renderProducts(products) {
+  const container = document.querySelector(".product-container");
+  container.innerHTML = "";
 
-      products.forEach((product) => {
-        const productCard = `
-          <a href="/${product.route}">
-            <div class="product-card" id="${product.name}">
-              <img src="${product.image || '/assets/no-image.png'}" alt="${product.name1}">
-              <h1>${product.name1}</h1>
-              <h4>
-                <strong>Price:</strong> <span class="price">₹ ${product.price}</span><br>
-                <strong>Brand:</strong> ${product.brand}<br>
-              </h4>
-            </div>
-          </a>
-        `;
-        container.innerHTML += productCard;
-      });
+  products.forEach((product) => {
+    let originalPrice = product.price;
+    let discountedPrice = originalPrice;
+    let salePercentage = product.sale_percentage;
+    let isOnSale = product.on_sale;
+
+    if (isOnSale && salePercentage) {
+      discountedPrice = originalPrice - (originalPrice * salePercentage / 100);
+    }
+
+    const productCard = `
+      <a href="/${product.route}">
+        <div class="product-card" id="${product.name}">
+          <img src="${product.image || '/assets/no-image.png'}" alt="${product.name1}">
+          <h1>${product.name1}</h1>
+          <h4>
+            ${isOnSale && salePercentage ? `<del>₹ ${originalPrice}</del>` : `<strong>Price:</strong> ₹ ${originalPrice}`}
+            ${isOnSale && salePercentage ? `<br><strong>Discounted Price:</strong> <span class="discounted-price"><br>₹ ${discountedPrice}</span>` : ''}
+            <br>
+            <strong>Brand:</strong> ${product.brand}<br>
+          </h4>
+        </div>
+      </a>
+    `;
+    container.innerHTML += productCard;
+  });
+
+
+      // const paginationContainer = document.createElement("div");
+      // paginationContainer.classList.add("pagination-container");
+
+      // const totalpages = Math.ceil(products.length / limit);
+      // for (let i = 1; i <= totalpages; i++) {
+      //   const paginationButton = document.createElement("button");
+      //   paginationButton.textContent = i;
+      //   paginationButton.classList.add("pagination-button");
+      //   if (i===page) { 
+      //     paginationButton.classList.add("active");
+      //   }
+      //   paginationButton.addEventListener("click", () => {
+      //     if (document.getElementById("category-select").value) {
+      //       filterProducts(document.getElementById("category-select").value, i, limit);
+      //     } else {
+      //       getProducts(i, limit);
+      //     }
+      //   });
+      //   paginationContainer.appendChild(paginationButton);
+      // }
+      // container.appendChild(paginationContainer);
     }
 
     function filterProducts(category) {

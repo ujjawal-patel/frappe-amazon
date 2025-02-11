@@ -17,13 +17,13 @@
  "idx": 11,
  "indicator_color": "pink",
  "is_hidden": 0,
- "label": "Amazon Admin",
+ "label": "Product Master Admin",
  "link_type": "DocType",
  "links": [],
- "modified": "2025-01-28 17:12:42.100037",
+ "modified": "2025-02-03 14:57:01.801229",
  "modified_by": "Administrator",
  "module": "Amazon Application",
- "name": "Amazon Admin",
+ "name": "Product Master Admin",
  "number_cards": [
   {
    "label": "Users",
@@ -63,6 +63,6 @@
  ],
  "sequence_id": 23.0,
  "shortcuts": [],
- "title": "Amazon Admin",
+ "title": "Product Master Admin",
  "type": "Workspace"
 }

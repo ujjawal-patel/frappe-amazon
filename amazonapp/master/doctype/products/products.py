@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 # import frappe
+import logging
 from frappe.website.website_generator import WebsiteGenerator
 
 
@@ -35,10 +36,9 @@ def get_products(category=None, search_query=None):
             "Products", fields=["*"], filters={"category": category}
         )
     else:
-        # Fetch all products with required fields
+        
         products = frappe.get_all("Products", fields=["*"])
-
-    # Fetch additional details (brand, model, etc.) for each product
+    
     for product in products:
         if product.product_details:
             if product.category == "Electronics":
